@@ -10,6 +10,8 @@ if __name__ == '__main__':
     if _debug_:
         print(filepaths)
 
+    pdf = fpdf.FPDF(orientation="P", unit='mm', format='A4')
+
     for filepath in filepaths:
         filename = Path(filepath).stem
         if _debug_:
@@ -18,13 +20,12 @@ if __name__ == '__main__':
         with open(filepath, 'r') as file:
             content = file.read()
 
-        pdf = fpdf.FPDF(orientation="P", unit='mm', format='A4')
         pdf.add_page()
         pdf.set_font(family='Arial', style="B", size=18)
         pdf.cell(w=0, h=18, ln=1, txt=filename.title())
         pdf.set_font(family='Arial', size=12)
         pdf.multi_cell(w=0, h=6, align='J', txt=content)
 
-        pdf.output(f'PDFs/{filename}.pdf')
+    pdf.output('PDFs/output.pdf')
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
